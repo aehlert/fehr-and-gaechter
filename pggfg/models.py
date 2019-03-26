@@ -45,10 +45,10 @@ class Group(BaseGroup):
         self.average_contribution = self.total_contribution / Constants.players_per_group
         self.individual_share = self.total_contribution * Constants.efficiency_factor / Constants.players_per_group
         for p in self.get_players():
-            p.pd_payoff = sum([+ Constants.endowment,
+            p.pd_payoff = max(sum([+ Constants.endowment,
                                - p.contribution,
                                + self.individual_share,
-                               ])
+                               ]), 0)
 
     def set_punishments(self):
         for p in self.get_players():
